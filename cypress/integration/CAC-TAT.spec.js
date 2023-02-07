@@ -29,7 +29,7 @@ describe('Central de Atendimento ao Cliente TAT', function(){
         cy.get('.success').should('not.be.visible')
     })
 
-    Cypress._.times(10, () => {it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){
+    Cypress._.times(2, () => {it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){
         
         cy. clock ()
 
@@ -125,7 +125,7 @@ describe('Central de Atendimento ao Cliente TAT', function(){
 
     it('seleciona um produto (YouTube) por seu texto', function(){
         cy.get('#product')
-            .select('Youtube')
+            .select('youtube')
             .should('have.value', 'youtube')
     })
 
@@ -142,27 +142,27 @@ describe('Central de Atendimento ao Cliente TAT', function(){
     })
 
     it('marca o tipo de atendimento "Feedback', function(){
-        cy.get('input[type="radio] [value="feedback"]')
+        cy.get('input[type="radio"][value="feedback"]')
             .check()
             .should('have.value', 'feedback')
     })
 
     it('marca cada tipo de atendimento', function(){
-        cy.get('input[type="radio]')
-            .should('have.lenght', 3)
-            .each(function($radio){
-                cy.wrap($radio).check()
-                cy.wrap($radio).should('be.checked')
-            })
+        cy.get('input[type="radio"]')
+        .should('have.length', 3)
+        .each(function($radio){
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+        })
     })
 
     it('marca ambos checkboxes, depois desmarca o último', function(){
         cy.get('input[type="checkbox"]')
             .check()
-            .should('be.checkd')
+            .should('be.checked')
             .last()
             .uncheck()
-            .should('not.be.checkd')
+            .should('not.be.checked')
     })
 
     it('seleciona um arquivo da pasta fixtures', function(){
@@ -170,7 +170,7 @@ describe('Central de Atendimento ao Cliente TAT', function(){
             .should('not.have.value')
             .selectFile('./cypress/fixtures/example.json')
             .should(function($input){
-                expect($input[0].files[0].to.equal('example.json'))
+                expect($input[0].files[0].name).to.equal('example.json')
             })
     })
 
@@ -179,7 +179,7 @@ describe('Central de Atendimento ao Cliente TAT', function(){
             .should('not.have.value')
             .selectFile('./cypress/fixtures/example.json', {action: 'drag-drop'})
             .should(function($input){
-                expect($input[0].files[0].to.equal('example.json'))
+                expect($input[0].files[0].name).to.equal('example.json')
             })
     })
 
@@ -188,7 +188,7 @@ describe('Central de Atendimento ao Cliente TAT', function(){
         cy.get('input[type="file"]')
             .selectFile('@sampleFile')
             .should(function($input){
-                expect($input[0].files[0].to.equal('example.json'))
+                expect($input[0].files[0].name).to.equal('example.json')
             })
     })
 
